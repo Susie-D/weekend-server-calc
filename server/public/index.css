@@ -1,0 +1,21 @@
+section#recentResult {
+  display: flex;
+  flex-direction: row;
+  margin: 1em;
+  font-size: 3em;
+}
+
+section#resultHistory {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5em;
+  font-size: 2rem;
+}
+
+li {
+  list-style-type: none;
+}
+
+ul {
+  margin: 0.15em;
+}

@@ -1,21 +1,70 @@
+// Global variable that will contain all of the
+// calculation objects:
+let calculations = [
+  {
+    numOne: 3,
+    numTwo: 5,
+    operator: '+',
+    result: 8,
+  },
+];
+
 const express = require('express');
+
 const app = express();
-let PORT = process.env.PORT || 5000;
+let PORT = process.env.PORT || 5001;
 
 app.use(express.json());
 app.use(express.static('server/public'));
 
-// Global variable that will contain all of the
-// calculation objects:
-let calculations = []
-
-
 // Here's a wonderful place to make some routes:
 
 // GET /calculations
+app.get('/calculations', (req, res) => {
+  console.log('GET calculations');
+  res.send(calculations);
+});
 
 // POST /calculations
+app.post('/calculations', (req, res) => {
+  // POST req data - attach to the key (i.e. data: {numOne})
+  let firstNum = req.body.numOne;
+  let secondNum = req.body.numTwo;
+  let operator = req.body.operator;
 
+  let result = 0;
+
+  switch (operator) {
+    case '+':
+      result = Number(firstNum) + Number(secondNum);
+      break;
+    case '-':
+      result = Number(firstNum) - Number(secondNum);
+      break;
+    case '*':
+      result = Number(firstNum) * Number(secondNum);
+      break;
+    case '/':
+      result = Number(firstNum) / Number(secondNum);
+      break;
+  }
+
+  // TODO - Incorporate `=` : requires rework
+
+  // Create the "calculation result" object that needs to be push/added to the calculations array
+  let resultObj = {
+    numOne: Number(firstNum),
+    numTwo: Number(secondNum),
+    operator: operator,
+    result: result,
+  };
+
+  console.log('POST calculations');
+  console.log('Request', req.body);
+  // push the results object to the array
+  calculations.push(resultObj);
+  res.status(201).send(resultObj);
+});
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
 // 🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸
@@ -39,10 +88,10 @@ const server = app.listen(PORT, () => {
 // absolutely no need for you to reason about this.
 app.closeServer = () => {
   server.close();
-}
+};
 
 app.setCalculations = (calculationsToSet) => {
   calculations = calculationsToSet;
-}
+};
 
 module.exports = app;
