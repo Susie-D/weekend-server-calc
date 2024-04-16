@@ -26,7 +26,7 @@ let operator;
 operation = (event) => {
   event.preventDefault();
   operator = event.target.innerHTML;
-  //   console.log('operator', operator);
+  console.log('operator', operator);
   return operator;
 };
 

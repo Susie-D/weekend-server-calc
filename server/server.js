@@ -49,7 +49,6 @@ app.post('/calculations', (req, res) => {
       break;
   }
 
-  // TODO - Incorporate `=` : requires rework
 
   // Create the "calculation result" object that needs to be push/added to the calculations array
   let resultObj = {
