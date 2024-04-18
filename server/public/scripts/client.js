@@ -30,14 +30,24 @@ operation = (event) => {
   return operator;
 };
 
-calculateNums = (event) => {
-  event.preventDefault();
-
+clearInputs = () => {
   let firstNumInput = document.getElementById('numOne');
   let firstNum = firstNumInput.value;
 
   let secondNumberInput = document.getElementById('numTwo');
   let secondNum = secondNumberInput.value;
+
+  firstNum = '';
+  secondNum = '';
+}
+
+calculateNums = () => {
+  let firstNumInput = document.getElementById('numOne');
+  let firstNum = firstNumInput.value;
+
+  let secondNumberInput = document.getElementById('numTwo');
+  let secondNum = secondNumberInput.value;
+
 
   // show recent result
 
@@ -51,10 +61,7 @@ calculateNums = (event) => {
     },
   }).then((response) => {
     console.log('res', response.data);
-    recentResult.innerHTML = '';
-    firstNumInput = '';
-    secondNumberInput = '';
-
+    clearInputs();
     document.getElementById('recentResult');
     recentResult.innerHTML = `${response.data.result}`;
 
